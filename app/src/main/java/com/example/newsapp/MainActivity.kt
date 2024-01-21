@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.example.newsapp.adapters.FragmentAdapter
 import com.example.newsapp.architecture.NewsViewModel
+import com.example.newsapp.databinding.ActivityMainBinding
 import com.example.newsapp.utils.Constants.BUSINESS
 import com.example.newsapp.utils.Constants.ENTERTAINMENT
 import com.example.newsapp.utils.Constants.GENERAL
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         ENTERTAINMENT, SCIENCE,
         SPORTS, TECHNOLOGY, HEALTH
     )
-
+    private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: NewsViewModel
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager2
@@ -46,19 +47,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         // Set Action Bar
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        val toolbar: Toolbar = binding.toolbar
         setSupportActionBar(toolbar)
 
-        tabLayout = findViewById(R.id.tab_layout)
-        viewPager = findViewById(R.id.view_pager)
+        tabLayout = binding.tabLayout
+        viewPager = binding.viewPager
         viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
 
 
         if (!isNetworkAvailable(applicationContext)) {
-            val showError: TextView = findViewById(R.id.display_error)
+            val showError: TextView = binding.displayError
             showError.text = getString(R.string.internet_warming)
             showError.visibility = View.VISIBLE
         }
@@ -102,7 +105,7 @@ class MainActivity : AppCompatActivity() {
                 tab.text = newsCategories[position]
             }.attach()
         } else {
-            val showError: TextView = findViewById(R.id.display_error)
+            val showError: TextView =binding.displayError
             showError.text = errorMessage
             showError.visibility = View.VISIBLE
         }

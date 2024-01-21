@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.adapters.CustomAdapter
 import com.example.newsapp.architecture.NewsViewModel
+import com.example.newsapp.databinding.ActivityReadNewsBinding
+import com.example.newsapp.databinding.ActivitySavedNewsBinding
 import com.example.newsapp.utils.Constants.NEWS_CONTENT
 import com.example.newsapp.utils.Constants.NEWS_DESCRIPTION
 import com.example.newsapp.utils.Constants.NEWS_IMAGE_URL
@@ -28,19 +30,21 @@ class SavedNewsActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: NewsViewModel
     private lateinit var newsData: MutableList<NewsModel>
-
+    private lateinit var binding: ActivitySavedNewsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_saved_news)
+        binding = ActivitySavedNewsBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        recyclerView = findViewById(R.id.recyclerView)
+        recyclerView =binding.recyclerView
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.layoutManager = layoutManager
         newsData = mutableListOf()
 
         val adapter = CustomAdapter(newsData)
 
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        val toolbar: Toolbar = binding.toolbar
         setSupportActionBar(toolbar)
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

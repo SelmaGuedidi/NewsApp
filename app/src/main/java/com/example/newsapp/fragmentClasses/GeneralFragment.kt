@@ -15,6 +15,9 @@ import com.example.newsapp.NewsModel
 import com.example.newsapp.R
 import com.example.newsapp.ReadNewsActivity
 import com.example.newsapp.adapters.CustomAdapter
+import com.example.newsapp.databinding.FragmentBusinessBinding
+import com.example.newsapp.databinding.FragmentEntertainmentBinding
+import com.example.newsapp.databinding.FragmentGeneralBinding
 import com.example.newsapp.utils.Constants.NEWS_CONTENT
 import com.example.newsapp.utils.Constants.NEWS_DESCRIPTION
 import com.example.newsapp.utils.Constants.NEWS_IMAGE_URL
@@ -31,7 +34,7 @@ import com.squareup.picasso.Picasso
 class GeneralFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-
+    private lateinit var binding: FragmentGeneralBinding
     private lateinit var adapter: CustomAdapter
     private lateinit var newsDataForTopHeadlines: List<NewsModel>
     private lateinit var newsDataForDown: List<NewsModel>
@@ -41,10 +44,11 @@ class GeneralFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_general, container, false)
+        binding = FragmentGeneralBinding.inflate(layoutInflater)
+        val view = binding.root
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
 
-        recyclerView = view.findViewById(R.id.recyclerView)
+        recyclerView = binding.recyclerView
         recyclerView.layoutManager = layoutManager
 
         // Setting recyclerViews adapter
