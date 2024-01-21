@@ -55,7 +55,7 @@ Welcome to our News App, a user-friendly platform to stay updated on the latest 
 
 3. **Save for Later**:
    * Save interesting articles by clicking on the "Read Later" option at the top-right corner of the screen.
-   * Enjoy a seamless reading experience with an integrated webview.
+   * Access your saved articles at any time from a dedicated section.
 <img width="249" alt="Screenshot 2024-01-21 at 3 16 03 PM" src="https://github.com/SelmaGuedidi/NewsApp/assets/79056754/cd6ad5ba-04af-4cae-8e0f-57cedfd4203c">
 <img width="245" alt="Screenshot 2024-01-21 at 3 17 02 PM" src="https://github.com/SelmaGuedidi/NewsApp/assets/79056754/5e5fe82a-39ea-4ab5-96b3-f2a0a2a1e596">
 
