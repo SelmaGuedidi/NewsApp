@@ -2,13 +2,13 @@ package com.example.newsapp.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.NewsModel
 import com.example.newsapp.R
+import com.example.newsapp.databinding.ListItemBinding
 import com.squareup.picasso.Picasso
 import java.time.Duration
 import java.time.Instant
@@ -44,70 +44,66 @@ class CustomAdapter(private var newsList: List<NewsModel>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ListItemBinding.inflate(inflater, parent, false)
         context = parent.context
-        return ViewHolder(view, mClickListener, mLongClickListener)
+        return ViewHolder(binding, mClickListener, mLongClickListener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val newsData = newsList[holder.adapterPosition]
 
-        holder.headLine.text = newsData.headLine
+        holder.binding.newsTitle.text = newsData.headLine
         val time: String? = newsData.time
         val imgUrl = newsData.image
 
         if (imgUrl.isNullOrEmpty()) {
             Picasso.get()
-                .load( R.drawable.samplenews)
+                .load(R.drawable.samplenews)
                 .fit()
                 .centerCrop()
-                .into(holder.image)
+                .into(holder.binding.img)
         } else {
             Picasso.get()
                 .load(imgUrl)
                 .fit()
                 .centerCrop()
                 .error(R.drawable.samplenews)
-                .into(holder.image)
+                .into(holder.binding.img)
         }
 
         if (context.toString().contains("SavedNews")) {
             val date = " " + time?.substring(0, time.indexOf('T', 0))
-            holder.newsPublicationTime.text = date
+            holder.binding.newsPublicationTime.text = date
         } else {
             val currentTimeInHours = Instant.now().atZone(ZoneId.of("Asia/Kolkata"))
             val newsTimeInHours = Instant.parse(time).atZone(ZoneId.of("Asia/Kolkata"))
             val hoursDifference = Duration.between(currentTimeInHours, newsTimeInHours)
             val hoursAgo = " " + hoursDifference.toHours().toString().substring(1) + " hour ago"
-            holder.newsPublicationTime.text = hoursAgo
+            holder.binding.newsPublicationTime.text = hoursAgo
         }
-
     }
 
     override fun getItemCount(): Int {
         return newsList.size
     }
 
+
     class ViewHolder(
-        ItemView: View,
+        val binding: ListItemBinding,
         listener: OnItemClickListener,
         listener2: OnItemLongClickListener
-    ) : RecyclerView.ViewHolder(ItemView) {
-        val image: ImageView = itemView.findViewById(R.id.img)
-        val headLine: TextView = itemView.findViewById(R.id.news_title)
-        val newsPublicationTime: TextView = itemView.findViewById(R.id.news_publication_time)
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            ItemView.setOnClickListener {
+            binding.root.setOnClickListener {
                 listener.onItemClick(adapterPosition)
             }
 
-            ItemView.setOnLongClickListener {
+            binding.root.setOnLongClickListener {
                 listener2.onItemLongClick(adapterPosition)
                 return@setOnLongClickListener true
             }
         }
-
     }
-
 }

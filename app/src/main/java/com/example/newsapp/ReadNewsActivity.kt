@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import com.example.newsapp.architecture.NewsViewModel
+import com.example.newsapp.databinding.ActivityReadNewsBinding
 import com.example.newsapp.utils.Constants.NEWS_CONTENT
 import com.example.newsapp.utils.Constants.NEWS_DESCRIPTION
 import com.example.newsapp.utils.Constants.NEWS_IMAGE_URL
@@ -28,17 +29,19 @@ class ReadNewsActivity : AppCompatActivity() {
     private lateinit var newsWebView: WebView
     private lateinit var viewModel: NewsViewModel
     private lateinit var newsData: ArrayList<NewsModel>
-
+    private lateinit var binding: ActivityReadNewsBinding
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_read_news)
+        binding = ActivityReadNewsBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        val toolbar: Toolbar = binding.toolbar
         setSupportActionBar(toolbar)
 
-        newsWebView = findViewById(R.id.news_webview)
+        newsWebView = binding.newsWebview
         viewModel = ViewModelProvider(this)[NewsViewModel::class.java]
 
         //loading data into list

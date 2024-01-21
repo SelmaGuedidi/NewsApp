@@ -13,6 +13,8 @@ import com.example.newsapp.NewsModel
 import com.example.newsapp.R
 import com.example.newsapp.ReadNewsActivity
 import com.example.newsapp.adapters.CustomAdapter
+import com.example.newsapp.databinding.FragmentBusinessBinding
+import com.example.newsapp.databinding.FragmentEntertainmentBinding
 import com.example.newsapp.utils.Constants.NEWS_CONTENT
 import com.example.newsapp.utils.Constants.NEWS_DESCRIPTION
 import com.example.newsapp.utils.Constants.NEWS_IMAGE_URL
@@ -23,15 +25,16 @@ import com.example.newsapp.utils.Constants.NEWS_URL
 
 
 class EntertainmentFragment : Fragment() {
-
+    private lateinit var binding: FragmentEntertainmentBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_entertainment, container, false)
+        binding = FragmentEntertainmentBinding.inflate(layoutInflater)
+        val view = binding.root
         val newsData: MutableList<NewsModel> = MainActivity.entertainmentNews
-        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
+        val recyclerView: RecyclerView = binding.recyclerView
         recyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         val adapter = CustomAdapter(newsData)
