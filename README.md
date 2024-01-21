@@ -1,4 +1,4 @@
-<img width="249" alt="Screenshot 2024-01-21 at 3 16 03 PM" src="https://github.com/SelmaGuedidi/NewsApp/assets/79056754/8c01c8fd-b925-4b52-9a08-79bd65b23319"># NewsApp 📰
+# NewsApp 📰
 
 ### Overview :
 Kotlin-based Android news app helps users stay up-to-date on the latest headlines.
@@ -26,7 +26,7 @@ Picasso is an Android image loading library designed for simplicity and efficien
 ### Application Walkthrough:
 Welcome to our News App, a user-friendly platform to stay updated on the latest news across various categories. Here's a brief walkthrough of its key features:
 1. **Tabs for Every Interest**:
-   * Navigate through eight tabs: HOME, BUSINESS, ENTERTAINMENT, SCIENCE, SPORTS, TECHNOLOGY, HEALTH.
+   * Navigate through seven tabs: HOME, BUSINESS, ENTERTAINMENT, SCIENCE, SPORTS, TECHNOLOGY, HEALTH.
    * Each tab presents a curated list of news articles relevant to the selected category.
 
    
