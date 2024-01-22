@@ -16,28 +16,28 @@ class FragmentAdapter(fm: FragmentManager, lifecycle: Lifecycle) : FragmentState
 
         when (position) {
             0 -> {
-                return GeneralFragment()
+                return GeneralFragment("General")
             }
             1 -> {
-                return BusinessFragment()
+                return GeneralFragment("Business")
             }
             2 -> {
-                return EntertainmentFragment()
+                return GeneralFragment("Entertainment")
             }
             3 -> {
-                return ScienceFragment()
+                return GeneralFragment("Science")
             }
             4 -> {
-                return SportsFragment()
+                return GeneralFragment("Sports")
             }
             5 -> {
-                return TechFragment()
+                return GeneralFragment("Tech")
             }
             6 -> {
-                return HealthFragment()
+                return GeneralFragment("Health")
             }
 
-            else -> return BusinessFragment()
+            else -> return GeneralFragment("General")
 
         }
     }

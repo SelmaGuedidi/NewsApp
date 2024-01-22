@@ -5,18 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.MainActivity
 import com.example.newsapp.NewsModel
-import com.example.newsapp.R
 import com.example.newsapp.ReadNewsActivity
 import com.example.newsapp.adapters.CustomAdapter
-import com.example.newsapp.databinding.FragmentBusinessBinding
-import com.example.newsapp.databinding.FragmentEntertainmentBinding
 import com.example.newsapp.databinding.FragmentGeneralBinding
 import com.example.newsapp.utils.Constants.NEWS_CONTENT
 import com.example.newsapp.utils.Constants.NEWS_DESCRIPTION
@@ -25,53 +20,53 @@ import com.example.newsapp.utils.Constants.NEWS_PUBLICATION_TIME
 import com.example.newsapp.utils.Constants.NEWS_SOURCE
 import com.example.newsapp.utils.Constants.NEWS_TITLE
 import com.example.newsapp.utils.Constants.NEWS_URL
-import com.example.newsapp.utils.Constants.TOP_HEADLINES_COUNT
-import com.example.newsapp.utils.Constants.INITIAL_POSITION
-import com.jama.carouselview.enums.IndicatorAnimationType
-import com.jama.carouselview.enums.OffsetType
-import com.squareup.picasso.Picasso
 
-class GeneralFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
+class GeneralFragment(private var type:String) : Fragment() {
     private lateinit var binding: FragmentGeneralBinding
-    private lateinit var adapter: CustomAdapter
-    private lateinit var newsDataForTopHeadlines: List<NewsModel>
-    private lateinit var newsDataForDown: List<NewsModel>
-    var position = INITIAL_POSITION
-
+    private lateinit var newsData: MutableList<NewsModel>
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        // Inflate the layout for this fragment
         binding = FragmentGeneralBinding.inflate(layoutInflater)
         val view = binding.root
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-        recyclerView = binding.recyclerView
-        recyclerView.layoutManager = layoutManager
-
-        // Setting recyclerViews adapter
-        newsDataForTopHeadlines = MainActivity.generalNews.slice(0 until TOP_HEADLINES_COUNT)
-        newsDataForDown = MainActivity.generalNews.slice(TOP_HEADLINES_COUNT until MainActivity.generalNews.size - TOP_HEADLINES_COUNT)
-        adapter = CustomAdapter(newsDataForDown)
+        if( type=="General") {
+            newsData= MainActivity.generalNews
+        }
+        else if( type=="Entertainment") {
+             newsData= MainActivity.entertainmentNews
+        }else  if( type=="Business") {
+            newsData= MainActivity.businessNews
+        }else if ( type=="Health") {
+            newsData= MainActivity.healthNews
+        }else if ( type=="Science") {
+            newsData= MainActivity.scienceNews
+        }
+        else if ( type=="Sports") {
+            newsData= MainActivity.sportsNews
+        }
+        else if ( type=="Tech") {
+            newsData= MainActivity.techNews
+        }
+        val recyclerView: RecyclerView = binding.recyclerView
+        recyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        val adapter = CustomAdapter(newsData)
         recyclerView.adapter = adapter
 
-
-
-
-
-        // listitem onClick
         adapter.setOnItemClickListener(object : CustomAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
+
                 val intent = Intent(context, ReadNewsActivity::class.java).apply {
-                    putExtra(NEWS_URL, newsDataForDown[position].url)
-                    putExtra(NEWS_TITLE, newsDataForDown[position].headLine)
-                    putExtra(NEWS_IMAGE_URL, newsDataForDown[position].image)
-                    putExtra(NEWS_DESCRIPTION, newsDataForDown[position].description)
-                    putExtra(NEWS_SOURCE, newsDataForDown[position].source)
-                    putExtra(NEWS_PUBLICATION_TIME, newsDataForDown[position].time)
-                    putExtra(NEWS_CONTENT, newsDataForDown[position].content)
+                    putExtra(NEWS_URL, newsData[position].url)
+                    putExtra(NEWS_TITLE, newsData[position].headLine)
+                    putExtra(NEWS_IMAGE_URL, newsData[position].image)
+                    putExtra(NEWS_DESCRIPTION, newsData[position].description)
+                    putExtra(NEWS_SOURCE, newsData[position].source)
+                    putExtra(NEWS_PUBLICATION_TIME, newsData[position].time)
+                    putExtra(NEWS_CONTENT, newsData[position].content)
                 }
 
                 startActivity(intent)
